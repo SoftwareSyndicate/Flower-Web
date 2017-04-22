@@ -1,19 +1,10 @@
 <template lang="pug">
 div#app
   div.nav-container
-    s-side-nav(:items="nav_items", :brand="org.name")
+    s-side-nav.desktop(:items="nav_items")
+    s-top-nav.mobile(:items="nav_items", :brand="'Flower'")
 
   div.content-container
-    div.breadcrumbs-container
-      s-breadcrumbs(:crumbs="crumbs")
-        div.actions(slot="actions")
-          div.product-actions(v-if="$route.name === 'product'")
-            s-button(title="Cancel", :onclick="cancel")
-            s-button(title="Save Product", :classes="['primary']", :onclick="save")
-          div.product-actions(v-if="$route.name === 'products'")
-            router-link(:to="{ name: 'product', params: { id: 'new' }}")
-              s-button(title="Add a new Product", :classes="['primary']")
-              
     div.view-container
       transition(name="fade", mode="out-in")
         router-view.vue
@@ -45,77 +36,61 @@ export default {
 
 <style lang="stylus">
 
-html
-  height 100%
+mobile = 600px
+desktop = 601px
 
+.mobile 
+  @media screen and (min-width: mobile)
+    display none
 
+.desktop 
+  @media screen and (max-width: desktop)
+    display none
+
+    
 body
-  margin 0
-  background-color #fff
-
-h1, h2, h3, h4, h5, h6, p, a, span
   margin 0px
-  padding 0px
-  color rgba(0, 0, 0, .5) !default
-  font-weight normal !default
-  text-decoration none
-  line-height 1em
-
-a
- color rgba(0, 0, 0, .5) 
-
-
-.row
-  flex-basis 100%
-  width 100%
+  height 100vh
   
-.row-flex
-  @extends .row
-  display flex
-    
-.row-flex-wrap
-  @extends .row-flex
-  flex-wrap wrap
-    
- 
-
 #app
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-  height 100%
   display flex
   flex-wrap wrap
+  
+  @media screen and (min-width: desktop)
+    flex-wrap nowrap
+    height 100vh
 
   .nav-container
     display flex
-    flex-basis 15%  
+    flex-basis 100%
+
+    @media screen and (min-width: desktop)
+      flex-basis 15%
+
 
   .content-container
-    flex-basis 85%  
-    flex-wrap wrap  
+    flex-basis 100%
+    flex-wrap wrap
+
+    @media screen and (min-width: desktop)
+      flex-basis 85%  
+
     
     .breadcrumbs-container
       flex-basis 100%
 
-      .actions
-        display flex
-
-        .product-actions
-          display flex
-          .s-button
-            margin-left 1em
-
     .view-container
       flex-basis 100%
-      padding 0em !important
 
       .fade-enter-active, .fade-leave-active
         transition all .2s ease
 
       .fade-enter, .fade-leave-active
         opacity 0
+
+      .page
+         padding 16px
+
 
 
 </style>

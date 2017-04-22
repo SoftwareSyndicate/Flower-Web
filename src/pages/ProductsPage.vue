@@ -1,10 +1,7 @@
 <template lang="pug">
-div.products-page
+div#products-page.page
   div.header
     h2.product-count {{filteredProducts.length}} products available
-
-    // div.product-filter
-    //   s-button(:title="'filter'")
 
   div.product-list
     div.product-container(v-for="product in filteredProducts")
@@ -31,12 +28,11 @@ export default {
 </script>
 
 <style lang="stylus" scoped>
-.products-page
+#products-page
   display flex
   flex-basis 100%
   flex-wrap wrap
-  padding 4em
-
+ 
   .header
     display flex
     flex-basis 100%
@@ -55,6 +51,7 @@ export default {
     display flex
     flex-basis 100%
     flex-wrap wrap
+    zoom .5
 
     .product-container
       display flex
